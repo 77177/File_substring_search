@@ -1,5 +1,7 @@
 # File_substring_search
-The program takes in 4 args from the command promt: The directory path, The output file path, The substring file path and the file mask. 
+The multithread program takes in 4 args from the command promt: The directory path, The output file path, The substring file path and the file mask. 
+
+Multithreading is done in such fashion so as to configure the thread handeling to the implementation of the specific machine(No more threads than what the hardware allows).
 
 The directory path - the directory in which to search for the substring file path specified substring.
 The substring file path - substring file.
