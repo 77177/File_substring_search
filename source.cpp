@@ -21,6 +21,7 @@ void file_access_output(ofstream output_file, string ss)
 	if (output_file.is_open())
 		output_file << ss << endl;
 }
+
 void cout_access_output(string ss)
 {
 	unique_lock<mutex> lock{ m };
@@ -46,7 +47,6 @@ void thread1(path file_path, path seq_path, path results_path)
 		int big_s = 0;
 		for (unsigned long long i = size_of_small; i <= size_of_big; ++i)
 		{
-
 			big.seekg(big_s, ios::beg);
 			small.seekg(0, ios::beg);
 			for (unsigned long long j = big_s; j < i; ++j)
@@ -68,19 +68,14 @@ void thread1(path file_path, path seq_path, path results_path)
 				return;
 			}
 			equals = true;
-
-
-
 			++big_s;
 		}
 		string f_ans = string{ "haven't found substring in " } +file_path.filename().generic_string();
 		cout_access_output(f_ans);
 		return;
-
 	}
-
-
 }
+
 pair<string, string> split_wstring(const string& str)
 {
 	pair<string, string> _pair_obj;
@@ -99,8 +94,6 @@ pair<string, string> split_wstring(const string& str)
 			{
 				_pair_obj.second += *r_itr;
 			}
-
-
 		}
 		else
 		{
@@ -110,12 +103,11 @@ pair<string, string> split_wstring(const string& str)
 	reverse(_pair_obj.first.begin(), _pair_obj.first.end());
 	return _pair_obj;
 }
+
 class thread_manager
 {
 private: list<future<void>> future_vec;
-
 public:
-
 	bool add_task(path p, path seq, path res)
 	{
 		if (future_vec.size() != thread::hardware_concurrency() - 1)
@@ -134,7 +126,6 @@ public:
 			{
 				itr->get();
 				itr = future_vec.erase(itr);
-
 			}
 			else
 			{
@@ -204,8 +195,6 @@ bool mask_compatable(const string& mask, const string& filename)
 	{
 		throw runtime_error{ "undefined mask" };
 	}
-
-
 }
 int main(int argc, char * argv[])
 {
@@ -228,7 +217,6 @@ int main(int argc, char * argv[])
 	for (recursive_directory_iterator file_itr{ search_directory_path }; file_itr != end_file_itr; ++file_itr)
 	{
 		path current_file_path = *file_itr;
-
 		if (mask_compatable(mask, current_file_path.filename().generic_string()))
 		{
 			while (!object._thread_availble());
